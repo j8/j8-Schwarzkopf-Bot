@@ -11,6 +11,11 @@ https://a86427cb.ngrok.io/webhook
 H3nk3lB0T
 ```
 
+# What we can do?
+
+https://developers.facebook.com/docs/messenger-platform/complete-guide/payments
+PAYMENTS ( BETA )
+
 # Messenger Platform Sample -- node.js
 
 This project is an example server for Messenger Platform built in Node.js. With this app, you can send it messages and it will echo them back to you. You can also see examples of the different types of Structured Messages. 
