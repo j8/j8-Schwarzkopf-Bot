@@ -1,0 +1,88 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@3.8.2
+3 info using node@v7.2.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly loadAllDepsIntoIdealTree Finishing
+20 silly idealTree:prePrune henkel-bot
+20 silly idealTree:prePrune ├── encoding@0.1.12
+20 silly idealTree:prePrune ├── iconv-lite@0.4.15
+20 silly idealTree:prePrune ├── is-stream@1.1.0
+20 silly idealTree:prePrune ├── isomorphic-fetch@2.2.1
+20 silly idealTree:prePrune ├── node-fetch@1.6.3
+20 silly idealTree:prePrune ├── node-uuid@1.4.7
+20 silly idealTree:prePrune ├── node-wit@4.1.0
+20 silly idealTree:prePrune └── whatwg-fetch@2.0.1
+21 silly loadIdealTree Finishing
+22 silly currentTree henkel-bot
+22 silly currentTree ├── encoding@0.1.12
+22 silly currentTree ├── iconv-lite@0.4.15
+22 silly currentTree ├── is-stream@1.1.0
+22 silly currentTree ├── isomorphic-fetch@2.2.1
+22 silly currentTree ├── node-fetch@1.6.3
+22 silly currentTree ├── node-uuid@1.4.7
+22 silly currentTree ├── node-wit@4.1.0
+22 silly currentTree └── whatwg-fetch@2.0.1
+23 silly idealTree henkel-bot
+23 silly idealTree ├── encoding@0.1.12
+23 silly idealTree ├── iconv-lite@0.4.15
+23 silly idealTree ├── is-stream@1.1.0
+23 silly idealTree ├── isomorphic-fetch@2.2.1
+23 silly idealTree ├── node-fetch@1.6.3
+23 silly idealTree ├── node-uuid@1.4.7
+23 silly idealTree ├── node-wit@4.1.0
+23 silly idealTree └── whatwg-fetch@2.0.1
+24 silly generateActionsToTake Starting
+25 silly install generateActionsToTake
+26 silly generateActionsToTake Finishing
+27 silly diffTrees action count 0
+28 silly decomposeActions action count 0
+29 silly executeActions Starting
+30 silly install executeActions
+31 silly doSerial global-install 0
+32 silly doParallel fetch 0
+33 verbose correctMkdir /Users/jordan/.npm/_locks correctMkdir not in flight; initializing
+34 verbose lock using /Users/jordan/.npm/_locks/staging-3912af78cfb8e431.lock for /Users/jordan/henkel-bot/node_modules/.staging
+35 verbose unlock done using /Users/jordan/.npm/_locks/staging-3912af78cfb8e431.lock for /Users/jordan/henkel-bot/node_modules/.staging
+36 silly rollbackFailedOptional Starting
+37 silly rollbackFailedOptional Finishing
+38 silly runTopLevelLifecycles Starting
+39 silly runTopLevelLifecycles Finishing
+40 silly install printInstalled
+41 warn enoent ENOENT: no such file or directory, open '/Users/jordan/henkel-bot/package.json'
+42 warn henkel-bot No description
+43 warn henkel-bot No repository field.
+44 warn henkel-bot No README data
+45 warn henkel-bot No license field.
+46 verbose stack Error: EACCES: permission denied, mkdir '/Users/jordan/henkel-bot/node_modules/.staging'
+47 verbose cwd /Users/jordan/henkel-bot
+48 error Darwin 16.1.0
+49 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+50 error node v7.2.0
+51 error npm  v3.8.2
+52 error path /Users/jordan/henkel-bot/node_modules/.staging
+53 error code EACCES
+54 error errno -13
+55 error syscall mkdir
+56 error Error: EACCES: permission denied, mkdir '/Users/jordan/henkel-bot/node_modules/.staging'
+56 error  { Error: EACCES: permission denied, mkdir '/Users/jordan/henkel-bot/node_modules/.staging'
+56 error   errno: -13,
+56 error   code: 'EACCES',
+56 error   syscall: 'mkdir',
+56 error   path: '/Users/jordan/henkel-bot/node_modules/.staging' }
+57 error Please try running this command again as root/Administrator.
+58 verbose exit [ -13, true ]

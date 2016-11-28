@@ -1,6 +1,6 @@
 {
-    "appSecret": "74ca1b2643830f027b815aa1fcf7c45d",
-    "pageAccessToken": "EAAEkJtdsO5QBADXX9p4C0d2XB69Gt2uORgAZBTbeGYz0QgVhxDZASslMdk392hA72ZApqgJVunaIRGZBtooqUbTzS9hXJ5jKpI1xIVO0GF1ZBsTeOl07ECR3R15q3Q2IY5SBEVDHcIH86SwAvStAx82zRFU0Je2OMsHefDLAcuPuKhDi7ZCYxA",
-    "validationToken": "H3nk3lB0T",
-    "serverURL": "https://e6b5ae35.ngrok.io"
+    "FB_APP_SECRET": "74ca1b2643830f027b815aa1fcf7c45d",
+    "FB_VERIFY_TOKEN": "H3nk3lB0T",
+    "SERVER_URL": "https://9fa9f9df.ngrok.io",
+    "FB_PAGE_TOKEN": "EAAEkJtdsO5QBALwbGq9hMdAud5FB1WXlxOl8roLm8MxrXbbHwJCXaX4eIIRtlnFXY2dBR2SD1kPBkneABooq9f2ry7WtDnUXZBE6pRkcgx3kEQ1g3TYo1lJpJZC5p6wX1hZAk6NCmT0jrMo5MbZCs9DB4QUTFAO632qxfqzB8oiT7eEfAJ67"
 }
