@@ -189,7 +189,7 @@ function sendVideoMessage(recipientId) {
       attachment: {
         type: "video",
         payload: {
-          url: SERVER_URL + "/assets/allofus480.mov"
+          url: SERVER_URL + "/assets/allofus480.mp4"
         }
       }
     }
@@ -198,32 +198,65 @@ function sendVideoMessage(recipientId) {
   callSendAPI(messageData);
 }
 
-// Show QA
-
-function showFAQ(recipientId) {
+function callUs(recipientId) {
   var messageData = {
     recipient: {
       id: recipientId
     },
-    message: {
-      text: "Our most frequently asked questions:",
-      quick_replies: [
-        {
-          "content_type":"text",
-          "title":"Am I able to mix 2 different hair colors?",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_ACTION"
-        },
-        {
-          "content_type":"text",
-          "title":"Can I use the color to color my eyelashes and eyebrows?",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_COMEDY"
-        },
-        {
-          "content_type":"text",
-          "title":"Can I color my hair when it is wet?",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_DRAMA"
+    "message":{
+      "attachment":{
+        "type":"template",
+           "payload":{
+              "template_type":"button",
+              "text":"Need further assistance? Talk to a representative",
+              "buttons":[
+                 {
+                    "type":"phone_number",
+                    "title":"Call Representative",
+                    "payload":"+495364219"
+                 }
+              ]
+           }
+      }
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+
+// Show QA
+
+function showHelp(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message:{
+      attachment:{
+        type:"template",
+        payload:{
+          "template_type":"button",
+          "text":"How we can help you?",
+          "buttons":[
+            {
+              "type":"postback",
+              "title":"Am I able to mix 2 different hair colors?",
+              "payload":"USER_DEFINED_PAYLOAD"
+            },
+            {
+              "type":"postback",
+              "title":"Can I use the color to color my eyelashes and eyebrows?",
+              "payload":"USER_DEFINED_PAYLOAD"
+            },
+            {
+              "type":"postback",
+              "title":"Can I color my hair when it is wet?",
+              "payload":"USER_DEFINED_PAYLOAD"
+            }
+          ]
         }
-      ]
+      }
     }
   };
 
@@ -441,42 +474,49 @@ app.post('/webhook', (req, res) => {
 
             console.log('I receive this message: ', text);
 
-            switch(text) {
-              case 'Show me products for blonde hair':
+            switch(text.toLowerCase()) {
+              case 'show me products for blonde hair':
                 sendBlondeHair(sender);
                 break;
-              case 'Show me products for red hair':
+              case 'show me products for red hair':
                 sendRedHair(sender);
                 break;
-              case 'faq':
-                showFAQ(sender);
+              case 'show me how to color my hair':
+                sendVideoMessage(sender);
+                break;
+              case 'help':
+                showHelp(sender);
                 break;
               case 'receipt':
                 sendReceiptMessage(sender);
                 break;
+              case 'call':
+                callUs(sender);
+                break;
               default:
-                wit.runActions(
-                  sessionId, // the user's current session
-                  text, // the user's message
-                  sessions[sessionId].context // the user's current session state
-                ).then((context) => {
-                  // Our bot did everything it has to do.
-                  // Now it's waiting for further messages to proceed.
-                  console.log('Waiting for next user messages');
+              console.log('text...', text)
+                // wit.runActions(
+                //   sessionId, // the user's current session
+                //   text, // the user's message
+                //   sessions[sessionId].context // the user's current session state
+                // ).then((context) => {
+                //   // Our bot did everything it has to do.
+                //   // Now it's waiting for further messages to proceed.
+                //   console.log('Waiting for next user messages');
 
-                  // Based on the session state, you might want to reset the session.
-                  // This depends heavily on the business logic of your bot.
-                  // Example:
-                  // if (context['done']) {
-                  //   delete sessions[sessionId];
-                  // }
+                //   // Based on the session state, you might want to reset the session.
+                //   // This depends heavily on the business logic of your bot.
+                //   // Example:
+                //   // if (context['done']) {
+                //   //   delete sessions[sessionId];
+                //   // }
 
-                  // Updating the user's current session state
-                  sessions[sessionId].context = context;
-                })
-                .catch((err) => {
-                  console.error('Oops! Got an error from Wit: ', err.stack || err);
-                });
+                //   // Updating the user's current session state
+                //   sessions[sessionId].context = context;
+                // })
+                // .catch((err) => {
+                //   console.error('Oops! Got an error from Wit: ', err.stack || err);
+                // });
             }
 
           }
