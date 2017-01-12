@@ -348,7 +348,7 @@ function sendBlondeHair(recipientId) {
             buttons: [{
               type: "web_url",
               url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/10-1_Light_Blonde.html",
-              title: "Buy"
+              title: "View"
             }],
           },
           {
@@ -359,7 +359,7 @@ function sendBlondeHair(recipientId) {
             buttons: [{
               type: "web_url",
               url: "http://www.schwarzkopf.com/skus/en/home/brands/color/KeratinColor/12-0_Light_Pearl_Blonde.html",
-              title: "Buy"
+              title: "View"
             }],
           }
           ]
@@ -392,7 +392,7 @@ function sendRedHair(recipientId) {
             buttons: [{
               type: "web_url",
               url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/5-22_Ruby_Red.html",
-              title: "Buy"
+              title: "See details"
             }],
           },
           {
@@ -403,7 +403,7 @@ function sendRedHair(recipientId) {
             buttons: [{
               type: "web_url",
               url: "http://www.schwarzkopf.com/skus/en/home/brands/color/KeratinColor/5-6_Warm_Mahogany.html",
-              title: "Buy"
+              title: "See details"
             }],
           }
           ]
@@ -433,6 +433,30 @@ function sendQuickReply(recipientId) {
           "content_type":"text",
           "title":"Chat with Color Team",
           "payload":"ACTION_CHAT"
+        }
+      ]
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+function finalReply(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },    "message":{
+      "text":"Is there anything else I can help you with?",
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"About Schwarzkopf",
+          "payload":"ACTION_ABOUT_US"
+        },
+        {
+          "content_type":"text",
+          "title":"Share colot Match",
+          "payload":"ACTION_SHARE"
         }
       ]
     }
@@ -525,6 +549,12 @@ app.post('/webhook', (req, res) => {
 
             console.log('I receive this message: ', text);
 
+
+            if(text === 'receipt') {
+              console.log('here')
+              sendReceiptMessage(sender);
+            }
+
             switch(event.message.quick_reply.payload) {
               // case 'show me products for blonde hair':
               //   sendBlondeHair(sender);
@@ -546,7 +576,7 @@ app.post('/webhook', (req, res) => {
               //   break;
               case 'ACTION_COLOR_MATCHING':
                 sessions[sessionId].context = 'upload'
-                setTimeout(function(){fbMessage(sender, 'Gorgeous! Upload a photo or snap a selfie ')}, 0);
+                setTimeout(function(){fbMessage(sender, 'Gorgeous! Upload a photo or snap a selfie 📷')}, 0);
                 setTimeout(function(){fbMessage(sender, 'Hint: show your face and hair from roots to ends in natural lighting. Avoid areas too bright or too dim.')}, 200);
                 break;
               case 'COLOR_MATCHED':
@@ -698,8 +728,7 @@ app.post('/webhook', (req, res) => {
               case 'RECOMMEND_SAME':
                   sessions[sessionId].context = 'recommend_color'
                   sendRedHair(sender);
-                  setTimeout(function(){fbMessage(sender, 'Is there anything else I can help you with?)')}, 500);
-                  setTimeout(function(){sendQuickReply(sender)}, 1000);
+                  setTimeout(function(){finalReply(sender)}, 2000);
                   break;
 
               default:
