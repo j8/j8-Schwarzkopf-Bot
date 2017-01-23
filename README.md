@@ -1,3 +1,7 @@
+#Use ngrok
+
+./ngrok http 8445
+
 # It uses NLP
 
 Natural Language Understanding
