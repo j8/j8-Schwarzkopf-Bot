@@ -328,6 +328,95 @@ function sendReceiptMessage(recipientId) {
 
 // Use generic API
 
+function sendBlackHair(recipientId) {
+
+  console.log('Sending blonde message', recipientId);
+
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Raven Black",
+            subtitle: "Especially developed for brilliant, vibrant color results",
+            item_url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/1-1_Raven_Black.html",               
+            image_url: "http://www.schwarzkopf.com/content/dam/skus/home/Products/ProductImages/Color/ColorUltime1920x2160/1-1_PD_CoUl_1920x2160.scale.050.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/1-1_Raven_Black.html",
+              title: "View"
+            }],
+          },
+          {
+            title: "Sapphire Black",
+            subtitle: "Especially developed for brilliant, vibrant color results",
+            item_url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/1-4_Sapphire_Black.html",               
+            image_url: "http://www.schwarzkopf.com/content/dam/skus/home/Products/ProductImages/Color/ColorUltime1920x2160/1-4_PD_CoUl_1920x2160.scale.050.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/1-4_Sapphire_Black.html",
+              title: "View"
+            }],
+          }
+          ]
+        }
+      }
+    }
+  };  
+
+  callSendAPI(messageData);
+}
+
+function sendBrownHair(recipientId) {
+
+  console.log('Sending blonde message', recipientId);
+
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [{
+            title: "Velvet Brown",
+            subtitle: "Especially developed `for brilliant, vibrant color results",
+            item_url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/3-8_Velvet_Brown.html",               
+            image_url: "http://www.schwarzkopf.com/content/dam/skus/home/Products/ProductImages/Color/ColorUltime1920x2160/3-8_PD_CoUl_1920x2160.scale.050.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/3-8_Velvet_Brown.html",
+              title: "View"
+            }],
+          },
+          {
+            title: "Rich Brown",
+            subtitle: "Especially developed for brilliant, vibrant color results",
+            item_url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/4-1_Rich_Brown.html",               
+            image_url: "http://www.schwarzkopf.com/content/dam/skus/home/Products/ProductImages/Color/ColorUltime1920x2160/4-1_PD_CoUl_1920x2160.scale.050.jpg",
+            buttons: [{
+              type: "web_url",
+              url: "http://www.schwarzkopf.com/skus/en/home/brands/color/colorUltime/4-1_Rich_Brown.html",
+              title: "View"
+            }],
+          }
+          ]
+        }
+      }
+    }
+  };  
+
+  callSendAPI(messageData);
+}
+
+
 function sendBlondeHair(recipientId) {
 
   console.log('Sending blonde message', recipientId);
@@ -451,13 +540,13 @@ function finalReply(recipientId) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Get color matched again",
+          "title":"Get color matched",
           "payload":"ACTION_COLOR_MATCHING"
         },
         {
           "content_type":"text",
-          "title":"Contact us",
-          "payload":"ACTION_CONTACT_US"
+          "title":"Chat with us",
+          "payload":"ACTION_CHAT_WITH_US"
         },
         {
           "content_type":"text",
@@ -571,7 +660,7 @@ app.post('/webhook', (req, res) => {
             switch(event.message.quick_reply.payload) {
               // case 'show me products for blonde hair':
               //   sendBlondeHair(sender);
-              //   break;
+                //   break;
               // case 'show me products for red hair':
               //   sendRedHair(sender);
               //   break;
@@ -747,6 +836,11 @@ app.post('/webhook', (req, res) => {
                         },
                         {
                           "content_type":"text",
+                          "title":"Brown",
+                          "payload":"COLOR_BROWN"
+                        },
+                        {
+                          "content_type":"text",
                           "title":"Blonde",
                           "payload":"COLOR_BLONDE"
                         }
@@ -761,15 +855,27 @@ app.post('/webhook', (req, res) => {
               case 'COLOR_BLACK':
                   sessions[sessionId].context = 'color_black'
                   fbMessage(sender, 'We recommend you the following products:')
-                  sendRedHair(sender);
+                  sendBlackHair(sender);
+                  setTimeout(function(){finalReply(sender)}, 2000);
+                  break;
+
+              case 'COLOR_BROWN':
+                  sessions[sessionId].context = 'color_black'
+                  fbMessage(sender, 'We recommend you the following products:')
+                  sendBrownHair(sender);
                   setTimeout(function(){finalReply(sender)}, 2000);
                   break;
 
               case 'COLOR_BLONDE':
                   sessions[sessionId].context = 'color_blonde'
                   fbMessage(sender, 'We recommend you the following products:')
-                  sendRedHair(sender);
+                  sendBlondeHair(sender);
                   setTimeout(function(){finalReply(sender)}, 2000);
+                  break;
+
+              case 'ACTION_CHAT_WITH_US':
+                  sessions[sessionId].context = 'color_blonde'
+                  fbMessage(sender, 'How we can help you?')
                   break;
 
               case 'TRY_SHADES':
@@ -813,29 +919,28 @@ app.post('/webhook', (req, res) => {
                   break;
 
               default:
-              console.log('text...', event.message)
-                // wit.runActions(
-                //   sessionId, // the user's current session
-                //   text, // the user's message
-                //   sessions[sessionId].context // the user's current session state
-                // ).then((context) => {
-                //   // Our bot did everything it has to do.
-                //   // Now it's waiting for further messages to proceed.
-                //   console.log('Waiting for next user messages');
+                wit.runActions(
+                  sessionId, // the user's current session
+                  text, // the user's message
+                  sessions[sessionId].context // the user's current session state
+                ).then((context) => {
+                  // Our bot did everything it has to do.
+                  // Now it's waiting for further messages to proceed.
+                  console.log('Waiting for next user messages');
 
-                //   // Based on the session state, you might want to reset the session.
-                //   // This depends heavily on the business logic of your bot.
-                //   // Example:
-                //   // if (context['done']) {
-                //   //   delete sessions[sessionId];
-                //   // }
+                  // Based on the session state, you might want to reset the session.
+                  // This depends heavily on the business logic of your bot.
+                  // Example:
+                  // if (context['done']) {
+                  //   delete sessions[sessionId];
+                  // }
 
-                //   // Updating the user's current session state
-                //   sessions[sessionId].context = context;
-                // })
-                // .catch((err) => {
-                //   console.error('Oops! Got an error from Wit: ', err.stack || err);
-                // });
+                  // Updating the user's current session state
+                  sessions[sessionId].context = context;
+                })
+                .catch((err) => {
+                  console.error('Oops! Got an error from Wit: ', err.stack || err);
+                });
             }
 
           }
